@@ -5,16 +5,27 @@ createButton.addEventListener('click',(function(){
     insertGrid(columnBox.value, rowBox.value);
 }) )
 document.getElementById('colors').onchange = changeColor;
-let color = 'red';
+let color = 'black';
+let mouseDown = 0;
+document.getElementById('background-colors').onchange = changeBackgroundColor;
+document.body.onmousedown = function(){
+    mouseDown = true;
+    console.log('down');
+}
+document.body.onmouseup = function(){
+    mouseDown = false;
+    console.log('up');
+}
+
 function insertGrid(width, height){
     if(width < 10 || width > 100 || height < 10 || height > 100){
         alert('Each dimension must be between 10-100');
         return;
     }
-    let sketchBox = document.querySelector('.sketch-box');
+    let sketchBox = document.querySelector('#sketch-box');
     sketchBox.innerHTML = "";
-    let boxHeight = sketchBox.clientHeight;
-    let boxWidth = sketchBox.clientWidth;
+    let boxHeight = sketchBox.clientHeight -  height;
+    let boxWidth = sketchBox.clientWidth - width;
     let currentRow, currentColumn;
     for(let row=0; row<height; row++){
         currentRow = document.createElement('div');
@@ -29,17 +40,28 @@ function insertGrid(width, height){
             let widthText = `${boxWidth / width}px`;
             currentColumn.style.height = heightText;
             currentColumn.style.width = widthText;
-            currentColumn.addEventListener('mousedown', (function(){
-                colorIn(currentColumn);
+            currentColumn.addEventListener('mouseover', (function(e){
+                colorIn(e);
             }))
             currentRow.appendChild(currentColumn);
         }
     }
 }
 function changeColor(){
-    colors = document.getElementById('colors').value;
+    color = document.getElementById('colors').value;
 }
-function colorIn(div){
-    div.style.backgroundColor = color;
+function changeBackgroundColor(){
+    divs = document.querySelectorAll('#sketch-box');
+    backColor = document.getElementById('background-colors').value;
+    for(let i =0; i<divs.length; i++){
+        divs[i].style.backgroundColor = backColor;
+    }
+    document.getElementById('eraser').value = backColor;
 }
-
+function colorIn(e){
+    console.log(e.which);
+    if(mouseDown){
+        e.target.style.backgroundColor = color;
+    }
+}
+insertGrid(50,50);
