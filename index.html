@@ -5,21 +5,37 @@
         <title>Etch-A-Sketch</title>
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
+        <link rel="stylesheet" href="https://use.typekit.net/xwr2uvc.css">
     </head>
     <body>
         <div class="button-box">
             <p># of rows:</p>
-            <input type="number"min="10" max="100" id="rows">
+            <input type="number"min="10" max="100"  placeholder="50" id="rows" value="50">
             <p># of columns:</p>
-            <input type="number" min="10" max="100" id="columns"><br>
-            <button id="create-button">Create Grid</button><br>
+            <input type="number" min="10" max="100" placeholder="50" id="columns" value="50"><br>
+            <button id="create-button">Create/Clear Grid</button><br>
+            <p>Pencil Color:</p>
             <select id="colors">
+                <option value="black" selected="selected">Black</option>
+                <option value="green">Green</option>
                 <option value="blue">Blue</option>
                 <option value="red">Red</option>
                 <option value="yellow">Yellow</option>
+                <option value="pink">Pink</option>
+                <option value="white" id="eraser">Eraser</option>
+            </select>
+            <p>Background Color:</p>
+            <select id="background-colors">
+                <option value="black">Black</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="red">Red</option>
+                <option value="yellow">Yellow</option>
+                <option value="pink">Pink</option>
+                <option value="white" selected="selected">White</option>
             </select>
         </div>
-        <div class="sketch-box">
+        <div id="sketch-box">
             
         </div>
     </body>
